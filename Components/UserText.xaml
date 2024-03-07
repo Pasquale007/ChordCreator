@@ -12,9 +12,13 @@
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical" Width="Auto" Grid.Column="0">
-            <Button Content="Export..." Click="Export" Height="30"/>
-            <Button Content="Import..." Click="Import" Height="30"/>
+        <StackPanel>
+            <Expander Header="Actions" IsExpanded="True">
+                <StackPanel Orientation="Vertical" Width="Auto" Grid.Column="0">
+                    <Button Content="Export..." Click="Export" Height="30" Margin="5 5 5 5"/>
+                    <Button Content="Import..." Click="Import" Height="30" Margin="5 5 5 5"/>
+                </StackPanel>
+            </Expander>
         </StackPanel>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext"/>
         <TabControl Grid.Column="2" Name="SongStructure" SelectionChanged="ChangeTab">

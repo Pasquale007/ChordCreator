@@ -126,6 +126,7 @@ namespace ChordCreater.Components {
                         stack.Children.Add(textLine);
                     }
                 }
+                AddPlusTab();
             }
         }
 
@@ -146,6 +147,10 @@ namespace ChordCreater.Components {
             AddLinesToTab(current);
 
             //add plus TabItem
+            AddPlusTab();
+        }
+
+        private void AddPlusTab() {
             Style plusIconStyle = new Style(typeof(TabItem));
             EventSetter eventSetter = new EventSetter(TabItem.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(AddTab_Click));
             plusIconStyle.Setters.Add(eventSetter);
@@ -155,10 +160,7 @@ namespace ChordCreater.Components {
             newTab.Name = "PlusIcon";
             newTab.Style = plusIconStyle;
 
-
             SongStructure.Items.Add(newTab);
-            e.Handled = true;
-
         }
 
         private void Rename(object sender, MouseButtonEventArgs e) {
@@ -173,6 +175,7 @@ namespace ChordCreater.Components {
                 return;
             }
             newHeader.Text = (string)selectedItem.Header;
+            Keyboard.Focus(newHeader);
             newHeader.Focus();
             newHeader.SelectAll();
             newHeader.LostFocus += (s, ev) => { selectedItem.Header = newHeader.Text; };
@@ -194,6 +197,7 @@ namespace ChordCreater.Components {
             scroller.Content = stack;
             newTab.Content = scroller;
             newTab.MouseDoubleClick += Rename;
+
             return newTab;
         }
 
@@ -212,7 +216,6 @@ namespace ChordCreater.Components {
                 return;
             }
             TabItem selectedTab = e.AddedItems[0] as TabItem;
-            Console.WriteLine(selectedTab.Header);
             currentTabItem = selectedTab;
         }
     }

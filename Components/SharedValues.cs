@@ -5,7 +5,6 @@ namespace ChordCreater.Components {
         public static readonly DependencyProperty TitleProperty =
             DependencyProperty.Register("Title", typeof(string), typeof(SharedValues), new PropertyMetadata("Liedtitel"));
 
-
         private string targetFolder = Config.targetFolder;
         public static SharedValues InstanceOf { get; } = new SharedValues();
 
