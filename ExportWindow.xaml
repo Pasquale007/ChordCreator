@@ -1,0 +1,29 @@
+﻿<Window x:Class="ChordCreater.ExportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChordCreater"
+        mc:Ignorable="d"
+        Title="ExportWindow" Height="450" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <TextBlock Text="Welche Dateien möchtest du erstellen?" FontSize="15" TextWrapping="Wrap"/>
+            <TextBlock Text="Du kannst auch mehrere gleichzeitig erzeugen" FontSize="13" TextWrapping="Wrap"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <CheckBox Name="Chorded" Content="Mit Akkorden"/>
+            <CheckBox Name="Lyrics" Content="Nur Text"/>
+        </StackPanel>
+        <Button Content="Export" Click="Export" Grid.Row="1" Grid.Column="0" Width="150"/>
+        <Button Content="Cancel" Click="Cancel" Grid.Row="1" Grid.Column="1" Width="150"/>
+    </Grid>
+</Window>
