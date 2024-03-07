@@ -17,11 +17,14 @@
             <Button Content="Import..." Click="Import" Height="30"/>
         </StackPanel>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext"/>
-        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <StackPanel Name="LineContainer" Grid.Row="1">
-                <local:Line LineNumber="1" x:Name="ChordLine"/>
-                <local:Line LineNumber="2" x:Name="TextLine"/>
-            </StackPanel>
-        </ScrollViewer>
+        <TabControl Grid.Column="2" Name="SongStructure" SelectionChanged="ChangeTab">
+            <TabItem Header="+" Name="PlusIcon">
+                <TabItem.Style>
+                    <Style TargetType="TabItem">
+                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="AddTab_Click"/>
+                    </Style>
+                </TabItem.Style>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
