@@ -43,10 +43,11 @@ namespace ChordCreater.Components {
                 }
                 ScrollViewer scroller = (ScrollViewer)item.Content;
                 StackPanel stack = (StackPanel)scroller.Content;
-                sb.Append(STRUCTURE_ELEMENT + item.Header);
+                sb.Append(item.Header + STRUCTURE_ELEMENT);
                 foreach (Line line in stack.Children) {
                     sb.AppendLine(line.Export());
                 }
+                Console.WriteLine(sb.ToString());
             }
 
             ExportWindow exportWindow = new ExportWindow(sb.ToString());
@@ -109,22 +110,21 @@ namespace ChordCreater.Components {
                 } else {
                     Console.WriteLine("Das Muster '\\beginsong{}' oder '\\endsong' wurde nicht gefunden. Bitte stelle sicher, dass du die .tex Datei öffnest.");
                 }
-            }
-            SongStructure.Items.Clear();
-            foreach (List<string> line in lines) {
-                if (line[1].Contains(STRUCTURE_ELEMENT)) {
-                    TabItem newTab = CreateTab();
-                    newTab.Header = line[1].Substring(0, line[1].Count() - 1);
-                    AddLinesToTab(newTab);
-                    SongStructure.Items.Add(newTab);
-                    currentTabItem = newTab;
-                } else {
-                    ScrollViewer scroller = (ScrollViewer)currentTabItem.Content;
-                    StackPanel stack = (StackPanel)scroller.Content;
-                    stack.Children.Add(new Line(line[0]));
-                    Line textLine = new Line(line[1]);
-                    textLine.NewLine += (s, ev) => CreateNewLine(s);
-                    stack.Children.Add(textLine);
+                SongStructure.Items.Clear();
+                foreach (List<string> line in lines) {
+                    if (line[1].Contains(STRUCTURE_ELEMENT)) {
+                        TabItem newTab = CreateTab();
+                        newTab.Header = line[1].Substring(0, line[1].Count() - 1);
+                        SongStructure.Items.Add(newTab);
+                        currentTabItem = newTab;
+                    } else {
+                        ScrollViewer scroller = (ScrollViewer)currentTabItem.Content;
+                        StackPanel stack = (StackPanel)scroller.Content;
+                        stack.Children.Add(new Line(line[0]));
+                        Line textLine = new Line(line[1]);
+                        textLine.NewLine += (s, ev) => CreateNewLine(s);
+                        stack.Children.Add(textLine);
+                    }
                 }
             }
         }
@@ -193,6 +193,7 @@ namespace ChordCreater.Components {
             StackPanel stack = new StackPanel();
             scroller.Content = stack;
             newTab.Content = scroller;
+            newTab.MouseDoubleClick += Rename;
             return newTab;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -27,6 +28,11 @@ namespace ChordCreater.Components {
             set { Number.Text = value; }
         }
 
+        public string LineContent {
+            get { return Text.Text; }
+            set { Text.Text = value; }
+        }
+
         public Line(string content) {
             InitializeComponent();
             Text.Text = content;
@@ -42,6 +48,25 @@ namespace ChordCreater.Components {
             } else {
                 lineType = LineType.Text;
                 accordingChordLine = lines[Int32.Parse(LineNumber) - 1];
+
+                // get chords from accordingChordLine and map them to the correct index
+                string chords = accordingChordLine.LineContent;
+                Console.WriteLine(chords);
+                int counter = 0;
+                for (int i = 0; counter < chords.Length; i++) {
+                    string chord = "";
+                    int startIndex = counter;
+                    while (chords.Length > i && chords.ElementAt(i) != ' ') {
+                        chord += chords.ElementAt(i);
+                        i++;
+                    }
+
+                    if (chord.Length > 0) {
+                        AddChord(startIndex, chord);
+                    }
+                    counter++;
+                }
+
                 Text.MouseDoubleClick += Content_MouseDoubleClick;
                 Text.PreviewKeyDown += Text_PreviewKeyDown;
             }
@@ -69,25 +94,7 @@ namespace ChordCreater.Components {
 
             InputDialog inputDialog = new InputDialog("Akkord Einfügen", $"Gib den Akkord für das Wort: '{selectedWord}' ein.");
             inputDialog.ChordEntered += (s, chord) => {
-
-                if (chordMapper.ContainsKey(startIndex)) {
-                    chordMapper.Remove(startIndex);
-                }
-
-                chordMapper.Add(startIndex, chord);
-
-                // Build the new text with spaces before the chord
-                string newText = "";
-                for (int i = 0; i < Text.Text.Length; i++) {
-                    if (chordMapper.ContainsKey(i)) {
-                        newText += chordMapper[i];
-                    } else {
-                        newText += " ";
-                    }
-                }
-
-                // Update the Text property of accordingChordLine with the new text
-                accordingChordLine.Text.Text = newText;
+                AddChord(startIndex, chord);
             };
             inputDialog.ShowDialog();
         }
@@ -102,7 +109,6 @@ namespace ChordCreater.Components {
             int textIndex = 0;
             for (int i = 0; i < songtext.Length; i++) {
                 if (chordMapper.ContainsKey(i)) {
-                    Console.WriteLine(chordMapper[i]);
                     combinedText += $"\\[{chordMapper[i]}]";
                 }
                 combinedText += songtext[textIndex];
@@ -120,6 +126,27 @@ namespace ChordCreater.Components {
 
         private void ClearLine(object sender, System.Windows.RoutedEventArgs e) {
             Text.Text = "";
+        }
+
+        private void AddChord(int startIndex, string chord) {
+            if (chordMapper.ContainsKey(startIndex)) {
+                chordMapper.Remove(startIndex);
+            }
+
+            chordMapper.Add(startIndex, chord);
+
+            // Build the new text with spaces before the chord
+            string newText = "";
+            for (int i = 0; i < Text.Text.Length; i++) {
+                if (chordMapper.ContainsKey(i)) {
+                    newText += chordMapper[i];
+                } else {
+                    newText += " ";
+                }
+            }
+
+            // Update the Text property of accordingChordLine with the new text
+            accordingChordLine.Text.Text = newText;
         }
     }
 }
