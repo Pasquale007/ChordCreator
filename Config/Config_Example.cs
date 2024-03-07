@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace ChordCreater.Config {
     internal class Config_Example {
-        public static readonly string targetFolder = "C:\\Users\\Pasca\\Desktop\\GenSongText";
+        public static readonly string targetFolder = "path-to-target-folder";
     }
 }
