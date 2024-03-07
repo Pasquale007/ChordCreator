@@ -6,7 +6,7 @@ namespace ChordCreater.Components {
             DependencyProperty.Register("Title", typeof(string), typeof(SharedValues), new PropertyMetadata("Liedtitel"));
 
 
-        private string targetFolder = "C:\\Users\\Pasca\\Desktop\\GenSongText";
+        private string targetFolder = Config.targetFolder;
         public static SharedValues InstanceOf { get; } = new SharedValues();
 
         public string Title {
