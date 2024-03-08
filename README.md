@@ -23,11 +23,13 @@ To get started with ChordCreator, follow these steps:
 1. **Download and Installation**: Clone or download the ChordCreator repository to your local machine. Install any necessary dependencies.
 2. **Configuization**: Copy the "Config_Example.cs" in the same folder and name it simply "Config.cs"
 2. **Finish**: You can now run the application. Have fun :)
-
-![Application](Github/images/Screenshot_Appllication.png)
-![Save Dialog](Github/images/Screenshot_Save.png)
-![Chorded Result](Github/images/Screenshot_Chorded.png)
-![Lyric Result](Github/images/Screenshot_Lyric.png)
+<details>
+<summary>Example Images</summary>
+<img src="Github/images/Screenshot_Appllication.png" alt="Application" width="200" style="display: block; margin: 0 auto;">
+<img src="Github/images/Screenshot_Save.png" alt="Save Dialog" width="200" style="display: block; margin: 0 auto;">
+<img src="Github/images/Screenshot_Chorded.png" alt="Chorded Result" width="200" style="display: block; margin: 0 auto;">
+<img src="Github/images/Screenshot_Lyric.png" alt="Lyric Result" width="200" style="display: block; margin: 0 auto;">
+</details>
 
 ## Contributing
 
