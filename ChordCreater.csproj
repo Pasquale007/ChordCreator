@@ -129,5 +129,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Github\images\Screenshot_Appllication.png" />
+    <Resource Include="Github\images\Screenshot_Chorded.png" />
+    <Resource Include="Github\images\Screenshot_Lyric.png" />
+    <Resource Include="Github\images\Screenshot_Save.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

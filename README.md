@@ -24,6 +24,11 @@ To get started with ChordCreator, follow these steps:
 2. **Configuization**: Copy the "Config_Example.cs" in the same folder and name it simply "Config.cs"
 2. **Finish**: You can now run the application. Have fun :)
 
+![Application](Github/images/Screenshot_Appllication.png)
+![Save Dialog](Github/images/Screenshot_Save.png)
+![Chorded Result](Github/images/Screenshot_Chorded.png)
+![Lyric Result](Github/images/Screenshot_Lyric.png)
+
 ## Contributing
 
 We welcome contributions from the community to enhance ChordCreator. If you encounter any issues, have suggestions for new features, or would like to contribute code, please feel free to submit a pull request.
