@@ -21,14 +21,6 @@
             </Expander>
         </StackPanel>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext"/>
-        <TabControl Grid.Column="2" Name="SongStructure" SelectionChanged="ChangeTab">
-            <TabItem Header="+" Name="PlusIcon">
-                <TabItem.Style>
-                    <Style TargetType="TabItem">
-                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="AddTab_Click"/>
-                    </Style>
-                </TabItem.Style>
-            </TabItem>
-        </TabControl>
+        <TabControl Grid.Column="2" Name="SongStructure" SelectionChanged="ChangeTab"/>
     </Grid>
 </UserControl>

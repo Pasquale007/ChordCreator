@@ -56,6 +56,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Components\MyContextMenu.cs" />
+    <Compile Include="Components\MyTabItem\MyTabItem.cs" />
+    <Compile Include="Components\MyTabItem\PlusTabItem.cs" />
     <Compile Include="Config\Config_Example.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Components\CreatePdf.cs" />

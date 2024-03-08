@@ -7,47 +7,28 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace ChordCreater.Components {
     /// <summary>
     /// Interaktionslogik für UserText.xaml
     /// </summary>
     public partial class UserText : UserControl {
-        private TabItem currentTabItem = null;
-        private readonly string STRUCTURE_ELEMENT = "%";
+        public static readonly string STRUCTURE_ELEMENT = "%";
+
+        private MyTabItem currentTabItem = null;
 
         public UserText() {
             InitializeComponent();
-        }
-
-        private void CreateNewLine(object numberObj) {
-            Console.WriteLine(currentTabItem.Header);
-            ScrollViewer scroller = (ScrollViewer)currentTabItem.Content;
-            StackPanel stack = (StackPanel)scroller.Content;
-            int number = Convert.ToInt32(numberObj);
-            int maxRows = stack.Children.Count;
-            for (int i = 1; i <= 2; i++) {
-                Line newLine = new Line();
-                newLine.NewLine += (s, ev) => CreateNewLine(s);
-                stack.Children.Add(newLine);
-                newLine.Focus();
-            }
+            AddPlusTab();
         }
 
         private void Export(object sender, RoutedEventArgs e) {
             StringBuilder sb = new StringBuilder();
-            foreach (TabItem item in SongStructure.Items) {
+            foreach (MyTabItem item in SongStructure.Items) {
                 if (item.Name == "PlusIcon") {
                     continue;
                 }
-                ScrollViewer scroller = (ScrollViewer)item.Content;
-                StackPanel stack = (StackPanel)scroller.Content;
-                sb.Append(item.Header + STRUCTURE_ELEMENT);
-                foreach (Line line in stack.Children) {
-                    sb.AppendLine(line.Export());
-                }
-                Console.WriteLine(sb.ToString());
+                sb.Append(item.Export());
             }
 
             ExportWindow exportWindow = new ExportWindow(sb.ToString());
@@ -113,7 +94,7 @@ namespace ChordCreater.Components {
                 SongStructure.Items.Clear();
                 foreach (List<string> line in lines) {
                     if (line[1].Contains(STRUCTURE_ELEMENT)) {
-                        TabItem newTab = CreateTab();
+                        MyTabItem newTab = new MyTabItem(SongStructure);
                         newTab.Header = line[1].Substring(0, line[1].Count() - 1);
                         SongStructure.Items.Add(newTab);
                         currentTabItem = newTab;
@@ -122,7 +103,7 @@ namespace ChordCreater.Components {
                         StackPanel stack = (StackPanel)scroller.Content;
                         stack.Children.Add(new Line(line[0]));
                         Line textLine = new Line(line[1]);
-                        textLine.NewLine += (s, ev) => CreateNewLine(s);
+                        textLine.NewLine += (s, ev) => currentTabItem.CreateNewLine(s);
                         stack.Children.Add(textLine);
                     }
                 }
@@ -130,67 +111,17 @@ namespace ChordCreater.Components {
             }
         }
 
-        private void AddTab_Click(object sender, RoutedEventArgs e) {
-            //set current tabItem to normal TabItem
-            TabItem current = (TabItem)sender;
-            current.Name = "";
-            current.Header = "rename me";
-            current.Style = null;
-            current.ContextMenu = new MyContextMenu(SongStructure);
-            ScrollViewer scroller = new ScrollViewer();
-            scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            scroller.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
-
-            StackPanel stack = new StackPanel();
-            scroller.Content = stack;
-            current.Content = scroller;
-            AddLinesToTab(current);
-
-            //add plus TabItem
-            AddPlusTab();
-        }
-
         private void AddPlusTab() {
-            Style plusIconStyle = new Style(typeof(TabItem));
-            EventSetter eventSetter = new EventSetter(TabItem.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(AddTab_Click));
-            plusIconStyle.Setters.Add(eventSetter);
-
-            TabItem newTab = CreateTab();
-            newTab.Header = "+";
-            newTab.Name = "PlusIcon";
-            newTab.Style = plusIconStyle;
-
+            TabItem newTab = new PlusTabItem(SongStructure);
             SongStructure.Items.Add(newTab);
         }
 
-        private TabItem CreateTab() {
-            TabItem newTab = new TabItem();
-            ScrollViewer scroller = new ScrollViewer();
-            scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-            scroller.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
-
-            StackPanel stack = new StackPanel();
-            scroller.Content = stack;
-            newTab.Content = scroller;
-
-            return newTab;
-        }
-
-        private void AddLinesToTab(TabItem item) {
-            ScrollViewer scroller = (ScrollViewer)item.Content;
-            StackPanel stack = (StackPanel)scroller.Content;
-            Line chordLine = new Line();
-            Line textLine = new Line();
-            textLine.NewLine += (s, ev) => CreateNewLine(s);
-            stack.Children.Add(chordLine);
-            stack.Children.Add(textLine);
-        }
 
         private void ChangeTab(object sender, SelectionChangedEventArgs e) {
             if (e.AddedItems.Count == 0) {
                 return;
             }
-            TabItem selectedTab = e.AddedItems[0] as TabItem;
+            MyTabItem selectedTab = e.AddedItems[0] as MyTabItem;
             currentTabItem = selectedTab;
         }
     }
