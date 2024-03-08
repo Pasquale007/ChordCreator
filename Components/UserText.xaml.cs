@@ -136,7 +136,7 @@ namespace ChordCreater.Components {
             current.Name = "";
             current.Header = "rename me";
             current.Style = null;
-            current.MouseDoubleClick += Rename;
+            current.ContextMenu = new MyContextMenu(SongStructure);
             ScrollViewer scroller = new ScrollViewer();
             scroller.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
             scroller.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
@@ -163,30 +163,6 @@ namespace ChordCreater.Components {
             SongStructure.Items.Add(newTab);
         }
 
-        private void Rename(object sender, MouseButtonEventArgs e) {
-            TabItem selectedItem = (TabItem)sender;
-            if ("PlusIcon" == selectedItem.Name) {
-                return;
-            }
-            TextBox newHeader = new TextBox();
-
-            //TODO: quickfix for selection of header with double click -> evtl contextmenu
-            if (selectedItem.Header is TextBox) {
-                return;
-            }
-            newHeader.Text = (string)selectedItem.Header;
-            Keyboard.Focus(newHeader);
-            newHeader.Focus();
-            newHeader.SelectAll();
-            newHeader.LostFocus += (s, ev) => { selectedItem.Header = newHeader.Text; };
-            newHeader.KeyDown += (s, ev) => {
-                if (ev.Key == Key.Enter) {
-                    selectedItem.Header = newHeader.Text;
-                }
-            };
-            selectedItem.Header = newHeader;
-        }
-
         private TabItem CreateTab() {
             TabItem newTab = new TabItem();
             ScrollViewer scroller = new ScrollViewer();
@@ -196,7 +172,6 @@ namespace ChordCreater.Components {
             StackPanel stack = new StackPanel();
             scroller.Content = stack;
             newTab.Content = scroller;
-            newTab.MouseDoubleClick += Rename;
 
             return newTab;
         }

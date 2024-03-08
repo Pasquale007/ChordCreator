@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\MyContextMenu.cs" />
     <Compile Include="Config\Config_Example.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Components\CreatePdf.cs" />
