@@ -25,10 +25,10 @@ To get started with ChordCreator, follow these steps:
 2. **Finish**: You can now run the application. Have fun :)
 <details>
 <summary>Example Images</summary>
-<img src="Github/images/Screenshot_Appllication.png" alt="Application" width="200" style="display: block; margin: 0 auto;">
-<img src="Github/images/Screenshot_Save.png" alt="Save Dialog" width="200" style="display: block; margin: 0 auto;">
-<img src="Github/images/Screenshot_Chorded.png" alt="Chorded Result" width="200" style="display: block; margin: 0 auto;">
-<img src="Github/images/Screenshot_Lyric.png" alt="Lyric Result" width="200" style="display: block; margin: 0 auto;">
+<img src="Github/images/Screenshot_Appllication.png" alt="Application" width="400" height="400" style="display: block; margin: 0 auto;">
+<img src="Github/images/Screenshot_Save.png" alt="Save Dialog" width="400" height="400" style="display: block; margin: 0 auto;">
+<img src="Github/images/Screenshot_Chorded.png" alt="Chorded Result" width="400" height="400" style="display: block; margin: 0 auto;">
+<img src="Github/images/Screenshot_Lyric.png" alt="Lyric Result" width="400" height="400" style="display: block; margin: 0 auto;">
 </details>
 
 ## Contributing
