@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChordCreater"
         mc:Ignorable="d"
-        Title="ExportWindow" Height="450" Width="500">
+        Title="ExportWindow" Height="450" Width="500"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
