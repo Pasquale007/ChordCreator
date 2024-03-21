@@ -38,9 +38,13 @@ namespace ChordCreater.Components {
         private void Import(object sender, RoutedEventArgs e) {
             List<List<string>> lines = new List<List<string>>();
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "TeX Dateien (*.tex)|*.tex";
             if (openFileDialog.ShowDialog() == true) {
                 string filePath = openFileDialog.FileName;
-
+                if (!filePath.EndsWith(".tex", StringComparison.OrdinalIgnoreCase)) {
+                    MessageBox.Show("Bitte wählen Sie eine .tex-Datei aus.");
+                    return;
+                }
                 string fileContent = File.ReadAllText(filePath);
                 string pattern = @"\\songsection\{(.*?)\}";
                 Match match = Regex.Match(fileContent, pattern);
