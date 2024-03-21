@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
@@ -14,7 +15,7 @@ namespace ChordCreater.Components {
         private Line accordingChordLine;
         static int lineID = 1;
         private SortedList<int, string> chordMapper = new SortedList<int, string>();
-
+        private bool isLast = true;
         enum LineType {
             Chord,
             Text,
@@ -119,7 +120,8 @@ namespace ChordCreater.Components {
         }
 
         private void Text_PreviewKeyDown(object sender, KeyEventArgs e) {
-            if (e.Key == Key.Enter && NewLine != null) {
+            if (Text.Text.Length > 0 && isLast) {
+                isLast = false;
                 NewLine.Invoke(LineNumber, e);
             }
         }
